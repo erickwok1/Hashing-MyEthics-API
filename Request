@@ -1,0 +1,13 @@
+import requests as rq
+
+base_url=r'https://unswomnistaruat.f1solutions.com.au/reporting/export/'
+key=***
+secret=***
+
+def make_report_uri(object_name):
+    uri=base_url+object_name
+    uri_schema=base_url+object_name+'/Schema'
+    return uri, uri_schema
+    
+uri=make_report_uri('Summary')[0] # 0 for data 1 for schema
+resp=rq.get(uri, headers={'Authorization':get_auth_header('GET',uri,key,secret)})
