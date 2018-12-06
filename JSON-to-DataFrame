@@ -1,0 +1,9 @@
+import pandas as pd
+
+# convert json-dictionary into list
+rows = []
+for item in resp.json()['Output']:
+        dict_temp = {}
+        dict_temp.update(item)
+        rows.append(dict_temp)
+df = pd.DataFrame(rows) 
