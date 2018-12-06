@@ -1,0 +1,16 @@
+import hashlib
+import hmac
+import time
+import base64
+from uuid import uuid4
+
+# authentication code builder
+def get_auth_header(method,uri,key,secret):
+    timestamp=int(time.time())
+    random_nonce=uuid4().hex
+    body=''.join([key,method,uri.lower(),str(timestamp),random_nonce])
+    body_byte=body.encode('utf-8')
+    signature = base64.b64encode(
+        hmac.new(secret, msg=body_byte, digestmod=hashlib.sha256).digest())
+    auth_key='Omni '+key+':'+signature.decode()+':'+random_nonce+':'+str(timestamp)
+    return auth_key
